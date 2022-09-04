@@ -1,21 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class EnemyFactory : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
+
+    private Vector3[] _enemyStartPositions = new Vector3[]{
+        new Vector3( 0, 0, 0 ),
+        new Vector3(-5, 0, 0 ),
+        new Vector3(0, 0, 5 ),
+        new Vector3(0, 0, -5 ),
+        new Vector3(5, 0, 0) };
     private GameObject _enemy;
 
-    void Update()
+    private void Start()
     {
+        StartCoroutine(SpawnEnemies());
+    }
+
+    private IEnumerator SpawnEnemies()
+    {
+        var waitForTwoSeconds = new WaitForSeconds(2f);
+
         if (_enemy == null)
         {
-            _enemy = Instantiate(_enemyPrefab);
-            _enemy.transform.position = new Vector3(2, 1, 0);
-            //float angle = Random.Range(0, 360);
-            //_enemy.transform.Rotate(0, angle, 0);
+            int _enemyLastStartPosition = _enemyStartPositions.Length - 1;
+
+            for (int i = 0; i < _enemyStartPositions.Length; i++)
+            {
+                _enemy = Instantiate(_enemyPrefab);
+                _enemy.transform.position = _enemyStartPositions[i];
+
+                if (i == _enemyLastStartPosition)
+                    i = 0;
+
+                yield return waitForTwoSeconds;
+            }
         }
     }
 }
