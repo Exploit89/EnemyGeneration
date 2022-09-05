@@ -6,7 +6,7 @@ public class EnemyAI : MonoBehaviour
     private float _obsstacleRange = 5.0f;
     private int _randomTurnAngle = 120;
 
-    void Update()
+    private void Update()
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
