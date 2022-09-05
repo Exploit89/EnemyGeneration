@@ -5,6 +5,7 @@ public class EnemyAI : MonoBehaviour
     private float _enemySpeed = 3.0f;
     private float _obsstacleRange = 5.0f;
     private int _randomTurnAngle = 120;
+    private float _rayRadius = 0.75f;
 
     private void Update()
     {
@@ -12,7 +13,7 @@ public class EnemyAI : MonoBehaviour
         RaycastHit hit;
         transform.Translate(0, 0, _enemySpeed * Time.deltaTime);
 
-        if (Physics.SphereCast(ray, 0.75f, out hit))
+        if (Physics.SphereCast(ray, _rayRadius, out hit))
         {
             if (hit.distance < _obsstacleRange)
             {

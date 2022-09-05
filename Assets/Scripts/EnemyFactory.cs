@@ -16,7 +16,8 @@ public class EnemyFactory : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-        var waitForTwoSeconds = new WaitForSeconds(2f);
+        float waitSecondsCount = 2f;
+        var waitForTwoSeconds = new WaitForSeconds(waitSecondsCount);
         int pointCount = 0;
 
         while (isWorking)
