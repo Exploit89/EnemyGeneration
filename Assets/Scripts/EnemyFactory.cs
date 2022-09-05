@@ -1,29 +1,31 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyAI))]
-
 public class EnemyFactory : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private EnemyAI _enemyPrefab;
     [SerializeField] private Transform _pointsParent;
+
+    private bool isWorking = false;
 
     private void Start()
     {
+        isWorking = true;
         StartCoroutine(SpawnEnemies());
     }
 
     private IEnumerator SpawnEnemies()
     {
         var waitForTwoSeconds = new WaitForSeconds(2f);
-        int enemyLastStartPosition = _pointsParent.childCount - 1;
+        int pointCount = 0;
 
-        for (int i = 0; i < _pointsParent.childCount; i++)
+        while (isWorking)
         {
-            var _enemy = Instantiate(_enemyPrefab, _pointsParent.GetChild(i));
+            var _enemy = Instantiate(_enemyPrefab.transform, _pointsParent.GetChild(pointCount));
+            pointCount++;
 
-            if (i == enemyLastStartPosition)
-                i = -1;
+            if (pointCount == _pointsParent.childCount)
+                pointCount = 0;
 
             yield return waitForTwoSeconds;
         }

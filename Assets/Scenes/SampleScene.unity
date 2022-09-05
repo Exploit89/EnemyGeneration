@@ -958,7 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa9c09e4a5bff243b992e02845dd07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 7110058877805052799, guid: 639fe7bdcf7636346a4bef9908d1a4c1, type: 3}
+  _enemyPrefab: {fileID: 8181260814437137974, guid: 639fe7bdcf7636346a4bef9908d1a4c1, type: 3}
   _pointsParent: {fileID: 289132750}
 --- !u!4 &1616730463
 Transform:
