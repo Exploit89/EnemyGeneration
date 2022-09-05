@@ -1,16 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyAI))]
+
 public class EnemyFactory : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
-
-    private Vector3[] _points = new Vector3[]{
-        new Vector3( 0, 0, 0 ),
-        new Vector3(-5, 0, 0 ),
-        new Vector3(0, 0, 5 ),
-        new Vector3(0, 0, -5 ),
-        new Vector3(5, 0, 0) };
+    [SerializeField] private Transform _pointsParent;
 
     private void Start()
     {
@@ -20,15 +16,14 @@ public class EnemyFactory : MonoBehaviour
     private IEnumerator SpawnEnemies()
     {
         var waitForTwoSeconds = new WaitForSeconds(2f);
-        int enemyLastStartPosition = _points.Length - 1;
+        int enemyLastStartPosition = _pointsParent.childCount - 1;
 
-        for (int i = 0; i < _points.Length; i++)
+        for (int i = 0; i < _pointsParent.childCount; i++)
         {
-            var _enemy = Instantiate(_enemyPrefab, _points[i], Quaternion.Euler(0f,0f,0f));
-            _enemy.transform.position = _points[i];
+            var _enemy = Instantiate(_enemyPrefab, _pointsParent.GetChild(i));
 
             if (i == enemyLastStartPosition)
-                i = 0;
+                i = -1;
 
             yield return waitForTwoSeconds;
         }
